@@ -44,10 +44,10 @@ class authController {
     // Our register logic starts here
     try {
       // Get user input
-      const {email, password} = req.body;
+      const {email, password, username} = req.body;
 
       // Validate user input
-      if (!(email && password)) {
+      if (!(email && password && username)) {
         res.status(400).send("All input is required");
       }
 
@@ -66,6 +66,7 @@ class authController {
       const user = await User.create({
         email: email.toLowerCase(), // sanitize: convert email to lowercase
         password: encryptedPassword,
+        username
       });
 
       // Create token
